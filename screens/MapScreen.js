@@ -18,7 +18,7 @@ const MapScreen = () => {
       <View style={tw`h-1/2`}>
         <Stack.Navigator>
           <Stack.Screen
-            name='NaivgateCard'
+            name='NavigateCard'
             component={NavigateCard}
             options={{ headerShown: false }}
           />
