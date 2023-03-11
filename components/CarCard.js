@@ -22,7 +22,7 @@ const CarCard = ({ id, title, multiplier, image, selected, press }) => {
       />
       <View style={tw`-ml-6`}>
         <Text style={tw`text-xl font-semibold`}>{title}</Text>
-        <Text>{travelTimeInformation?.duration.text}</Text>
+        <Text>{travelTimeInformation?.duration?.text}</Text>
       </View>
       <Text style={tw`text-xl`}>
 
@@ -30,7 +30,7 @@ const CarCard = ({ id, title, multiplier, image, selected, press }) => {
           style: "currency",
           currency: 'GBP',
         }).format(
-          (travelTimeInformation?.duration.value * multiplier) / 100
+          (travelTimeInformation?.duration?.value * multiplier) / 100
         )}
 
       </Text>
