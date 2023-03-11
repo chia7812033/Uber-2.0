@@ -18,7 +18,7 @@ const NavOption = ({ id, title, image, screen }) => {
         navigation.navigate(`${screen}`);
       }}
     >
-      <View style={tw`${!origin && "opacity-20"}`}>
+      <View style={tw`${!origin ? "opacity-20" : ""}`}>
         <Image
           style={{ width: 120, height: 120, resizeMode: "contain" }}
           source={{ uri: image }}

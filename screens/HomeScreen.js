@@ -3,6 +3,7 @@ import { setDestination, setOrigin } from "../features/navSlice";
 
 import { GOOGLE_API } from "@env";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import NavFavorite from "../components/NavFavorite";
 import NavOption from "../components/NavOption";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
@@ -70,6 +71,21 @@ const Homescreen = () => {
             title='Order food'
             image='https://links.papareact.com/28w'
             screen='EatsScreen'
+          />
+        </View>
+
+        <View>
+          <NavFavorite
+            id='123'
+            icon='home'
+            location='Home'
+            destination={"Code Street, London, UK"}
+          />
+          <NavFavorite
+            id='456'
+            icon='briefcase'
+            location='Work'
+            destination={"Londin Eye, London, UK"}
           />
         </View>
       </View>

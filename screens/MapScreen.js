@@ -4,7 +4,6 @@ import Map from "../components/Map";
 import NavigateCard from "../components/NavigateCard";
 import React from "react";
 import RideOptionsCard from "../components/RideOptionsCard";
-import { SafeAreaView } from "react-native-safe-area-context";
 import { createNativeStackNavigator } from "@react-navigation/native-stack";
 import tw from "twrnc";
 
@@ -12,7 +11,7 @@ const Stack = createNativeStackNavigator();
 
 const MapScreen = () => {
   return (
-    <SafeAreaView>
+    <View>
       <View style={tw`h-1/2`}>
         <Map />
       </View>
@@ -30,7 +29,7 @@ const MapScreen = () => {
           />
         </Stack.Navigator>
       </View>
-    </SafeAreaView>
+    </View>
   );
 };
 

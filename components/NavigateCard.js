@@ -2,6 +2,7 @@ import { StyleSheet, Text, View } from "react-native";
 
 import { GOOGLE_API } from "@env";
 import { GooglePlacesAutocomplete } from "react-native-google-places-autocomplete";
+import NavFavorite from "./NavFavorite";
 import React from "react";
 import { SafeAreaView } from "react-native-safe-area-context";
 import { setDestination } from "../features/navSlice";
@@ -14,7 +15,7 @@ const NavigateCard = () => {
   const navigation = useNavigation();
 
   return (
-    <SafeAreaView style={tw`bg-white flex-1`}>
+    <View style={tw`bg-white flex-1`}>
       <Text style={tw`text-center py-5 text-xl -mt-14`}>Good Morning</Text>
       <View style={tw`border-t border-gray-200 flex-shrink`}>
         <View>
@@ -34,6 +35,8 @@ const NavigateCard = () => {
                   description: data.description,
                 })
               );
+
+              navigation.navigate("RideOptionsCard");
             }}
             query={{
               key: GOOGLE_API,
@@ -42,7 +45,21 @@ const NavigateCard = () => {
           />
         </View>
       </View>
-    </SafeAreaView>
+      <View>
+        <NavFavorite
+          id='123'
+          icon='home'
+          location='Home'
+          destination={"Code Street, London, UK"}
+        />
+        <NavFavorite
+          id='456'
+          icon='briefcase'
+          location='Work'
+          destination={"Londin Eye, London, UK"}
+        />
+      </View>
+    </View>
   );
 };
 

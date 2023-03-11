@@ -1,3 +1,5 @@
+import { KeyboardAvoidingView, Platform } from "react-native";
+
 import EatsScreen from "./screens/EatsScreen";
 import HomeScreen from "./screens/HomeScreen";
 import MapScreen from "./screens/MapScreen";
@@ -14,23 +16,30 @@ export default function App() {
     <NavigationContainer>
       <Provider store={store}>
         <SafeAreaProvider>
-          <Stack.Navigator>
-            <Stack.Screen
-              name='HomeScreen'
-              component={HomeScreen}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name='MapScreen'
-              component={MapScreen}
-              options={{ headerShown: false }}
-            />
-            <Stack.Screen
-              name='EatsScreen'
-              component={EatsScreen}
-              options={{ headerShown: false }}
-            />
-          </Stack.Navigator>
+          <KeyboardAvoidingView
+            style={{ flex: 1 }}
+            enabled
+            behavior={Platform.OS === "ios" ? "padding" : "height"}
+            keyboardVerticalOffset={Platform.select({ ios: -64, android: 0 })}
+          >
+            <Stack.Navigator>
+              <Stack.Screen
+                name='HomeScreen'
+                component={HomeScreen}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name='MapScreen'
+                component={MapScreen}
+                options={{ headerShown: false }}
+              />
+              <Stack.Screen
+                name='EatsScreen'
+                component={EatsScreen}
+                options={{ headerShown: false }}
+              />
+            </Stack.Navigator>
+          </KeyboardAvoidingView>
         </SafeAreaProvider>
       </Provider>
     </NavigationContainer>
