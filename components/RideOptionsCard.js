@@ -4,12 +4,15 @@ import { Text, TouchableOpacity, View } from "react-native";
 import CarCard from "./CarCard";
 import { Icon } from "@rneui/themed";
 import { ScrollView } from "react-native";
+import { selectTravelTimeInformation } from "../features/navSlice";
 import tw from "twrnc";
 import { useNavigation } from "@react-navigation/native";
+import { useSelector } from "react-redux";
 
 const RideOptionsCard = () => {
   const navigation = useNavigation();
   const [selected, setSelected] = useState(null);
+  const travelTimeInformation = useSelector(selectTravelTimeInformation);
 
   return (
     <View style={tw`bg-white flex-grow`}>
@@ -21,7 +24,7 @@ const RideOptionsCard = () => {
           <Icon name='chevron-left' type='font-awesome' size={16} />
         </TouchableOpacity>
         <Text style={tw`text-center py-4 text-xl flex-1 pr-6`}>
-          Select a Ride
+          Select a Ride - {travelTimeInformation?.distance.text}
         </Text>
       </View>
 

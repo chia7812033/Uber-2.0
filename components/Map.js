@@ -1,32 +1,53 @@
 import MapView, { Marker } from "react-native-maps";
 import React, { useEffect, useRef } from "react";
 import { Text, View } from "react-native";
-import { selectDestination, selectOrigin } from "../features/navSlice";
+import {
+  selectDestination,
+  selectOrigin,
+  setTravelTimeInformation,
+} from "../features/navSlice";
+import { useDispatch, useSelector } from "react-redux";
 
 import { GOOGLE_API } from "@env";
 import MapViewDirections from "react-native-maps-directions";
 import tw from "twrnc";
-import { useSelector } from "react-redux";
 
 const Map = () => {
   const origin = useSelector(selectOrigin);
   const destination = useSelector(selectDestination);
   const mapRef = useRef(null);
+  const dispatch = useDispatch();
 
   useEffect(() => {
-    if (!origin || !destination) {
-      return;
-    }
+    if (!origin || !destination) return;
+
     mapRef.current.fitToCoordinates(
       [
         { latitude: origin.location.lat, longitude: origin.location.lng },
-        { latitude: destination.location.lat, longitude: destination.location.lng },
+        {
+          latitude: destination.location.lat,
+          longitude: destination.location.lng,
+        },
       ],
       {
         edgePadding: { top: 50, right: 50, bottom: 50, left: 50 },
       }
     );
   }, [origin, destination]);
+
+  useEffect(() => {
+    if (!origin || !destination) return;
+
+    const getTravelTime = async () => {
+      const data = await fetch(
+        `https://maps.googleapis.com/maps/api/distancematrix/json?destinations=${origin.description}&origins=${destination.description}&units=imperial&key=${GOOGLE_API}`
+      );
+      const json = await data.json();
+      dispatch(setTravelTimeInformation(json.rows[0].elements[0]));
+    };
+
+    getTravelTime().catch(console.error);
+  }, [origin, destination, GOOGLE_API]);
 
   return (
     <MapView
@@ -48,7 +69,7 @@ const Map = () => {
           }}
           title='Origin'
           description={origin.description}
-          identifier={'origin'}
+          identifier={"origin"}
         />
       )}
 
@@ -60,7 +81,7 @@ const Map = () => {
           }}
           title='Destination'
           description={destination.description}
-          identifier={'destination'}
+          identifier={"destination"}
         />
       )}
 
